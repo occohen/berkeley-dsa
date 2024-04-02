@@ -1,0 +1,163 @@
+dsa - day 1
+
+course details:
+submit using .java files
+5 assignments
+10 message board postings
+1 final project, 1 final exam
+code demonstrations done in python, a little bit of Java
+
+lecture:
+dsa is the foundation of CS
+effectively solving problems, accounting for space, organization of data
+data structures allow to arrange the same data multiple ways
+algorithms--set of instructions
+most dsa is built in, we learn it because it is important to understand it for tradeoffs/applications
+
+big O (asymptotic notation) -- the efficiency of an algorithm as its input size increases
+efficiency measured in terms of time taken or space taken
+based on number of items (n)
+tradeoffs: scale vs speed
+we assume platform independence: we don't measure hardware, operating system, speed of CPU, network factors, compiler/interpreter quality
+*this helps us figure out what is the overall best use
+notations (best to worst at scale):
+O(1) = constant
+O(log n) = logarithmic
+O(n) = linear
+O(n log n) linearithmic
+O(n^2) = quadratic
+O(n^3) = cubic
+O(2^n) = exponential
+O(n!) = factorial
+worst case: most inefficient, most useful for analysis (what if it really sucks?)
+expected/average: average input, realistic performance
+best case: most efficient, usually ignored because it is unrealistic
+
+O(1):
+*time doesn't change with input
+*space is only for alocating a variable, or a fixed size array or string
+O(log n):
+*logarithmic time (log base 2 of n)
+*examples: binary search, balanced binary search tree operations, heap operations
+Logarithmic vs linear: logarithmic is much more efficient at a higher n (as n gets bigger, log gets even better compared to linear)
+
+O(n log n):
+*linearithmic time
+*example: merge sort, heap sort, quick sort
+*worse than O(n)
+
+O(n^2):
+*bubble sort, nested interation
+
+O(n^3):
+*3d matrix storage
+
+Calculating Big O:
+for i = 1 to n
+   print(i)
+O(n)
+Drop non-dominant terms
+O(n+5) = O(n)
+O(n^2 + n + 76) = O(n^2)
+
+Different terms:
+n goes first, then m, then p, then q
+for i = 1 to n:
+   print(i)
+for j = 1 to m:
+   print(j)
+O(n + m) and n does not necessarily equal m
+
+Multiplication with Different Terms:
+for i = 1 to n
+   for j = 1 to n
+      print(i,j)
+O(n^2), nested loops
+
+BUT
+
+for i = 1 to n
+   for j = 1 to m
+      print(i,j)
+O(n*m) guau!!!!
+
+Arrays review
+Name, type, capacity (max number of items), count (number of items in array)
+*capacity is fixed
+Operations: indexing (ordering), count, append, delete, insert, search
+
+Indexing:
+- Figure out what value is stored at any given index (O(1))
+- Set element at any given index (O(1))
+
+Count
+- Total number of elements (O(1))
+
+Append
+- Place new value at the end of the array
+- this requires an algorithm:
+*assign value to array with array count (max) as index
+*increment count
+
+Insert
+- shift elements to the right
+*start at count -1
+*ending index: given insert index
+*increment count
+- assign value at insert index
+- increment count
+Complexity of Insert:
+Best case O(1), Average case O(n), Worst case O(n)
+
+Delete
+- shift elements to the left
+*start: delete index + 1
+*end: count
+- decrement the count variable
+Complexity of Delete:
+Best case O(1), Average case O(n), Worst case O(n)
+
+Strings
+Get length, O(1)
+Indexing, O(1)
+Substring (take a piece of the string), O(n)
+Comparison. If not same length, O(1). If same length, O(n)
+
+Static array limitations.
+* capacity is fixed
+* allocating too much memory (that won't be filled) is wasteful
+* allocating too little memory makes us too limited to what we can do with the array
+
+Dynamic Arrays!
+* allow resizing
+* memory allocated on need basis/just-in-time
+* checks whenever insert, append, or delete happens
+Dynamic array algorithm:
+-check to see if array is full
+-if true,
+*allocate additional space
+*copy existing elements to new array
+*set reference to the new array
+Constant size allocation
+-allocate new array with size of current array plus some constant (k)
+pros: simple
+cons: not efficient, requires copying array (which is O(n) complexity)
+Proportional size allocation
+-compromise between space and copying
+-allocate new array with double the size of current array
+pros: minimizes reallocation and copying, additional space is allocated are amortized
+cons: more complicated to do
+Essentially, if the array is full, double its size and copy over the array
+
+Dynamic array shrinking
+-if deleting happens a lot, array can be shrunk
+-when count is 1/4 of capacity
+*allocate space to 1/2 of current capacity
+*copy existing items
+*refer to new array
+
+Complexities for dynamic arrays:
+Count - best O(1) average O(1) worst O(1)
+Append - best O(1) average O(1) worst O(n)
+Insert - best O(1) average O(n) worst O(n)
+Delete - best O(1) average O(n) worst O(n)
