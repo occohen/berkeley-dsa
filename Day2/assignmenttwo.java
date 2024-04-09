@@ -20,15 +20,64 @@ Real life example: A line at an ice cream shop. New customers enter the end of t
 Deques: Double ended queue.
 This means that things can be removed or added to either side of the list (front or back).
 Programming example: Search history. As more entries are added to the end (more searches), the deque is expanded to the right (or the front). At a certain point, the capacity for total storage is fulfilled, and the searches from the beginning need to be removed. Using a deque would allow users to also remove searches from the end of the list more efficiently.
-Real life example: 
-
+Real life example: Task scheduling. High priority tasks can be added to the beginning of the list (and removed once they are complete) and lower priority tasks can be added to the end. When tasks are completed, they can be removed from either end. This allows users to have greater control over the workflow.
 */
 
 
 package Day2;
-
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 class assignmenttwo{
     public static void main(String[] args) {
+        ArrayList<String> tests = new ArrayList<String>();
+        tests.add("[ ]");
+        tests.add("{}{}[]()");
+        tests.add("[{()}]");
+        tests.add("(()[[[()({})]]])");
+        tests.add("[ ] [");
+        tests.add("{{}[](})");
+        tests.add("[{)}]");
+        tests.add("(()[()({})]]])");
+        for(int i = 0; i < tests.size(); i++){
+            System.out.println("test case" + i + checkBalanced(tests.get(i)));
+        }
+       
         
+    } 
+    public static Boolean checkBalanced(String input){
+        //edgecase, string empty
+        if(input.length() == 0)return true;
+        
+        ArrayDeque<Character> inputArray = new ArrayDeque<Character>();
+        for(int i = 0; i < input.length();i++){
+            if(Character.toString(input.charAt(i)).equals("(") || Character.toString(input.charAt(i)).equals("{") || Character.toString(input.charAt(i)).equals("[")){
+                inputArray.offerLast((input.charAt(i)));
+            }
+            else if(Character.toString(input.charAt(i)).equals(")") || Character.toString(input.charAt(i)).equals("}") || Character.toString(input.charAt(i)).equals("]")){
+                if(inputArray.isEmpty())return false;
+                //System.out.println(inputArray);
+                //System.out.println(inputArray.size());
+                String mostRecent = Character.toString(inputArray.removeLast());
+                String current = Character.toString(input.charAt(i));
+                //System.out.println(mostRecent);
+                //System.out.println(current);
+                if(current.equals(")") && !mostRecent.equals( "(")){
+                        return false;
+                }
+                else if(current.equals("]") && !mostRecent.equals( "[")){
+                        return false;
+                }
+                else if(current.equals("}") && !mostRecent.equals( "{")){
+                        return false;
+                }
+                //System.out.println(inputArray);
+            }
+        }
+        //System.out.println(inputArray);
+        return (inputArray.isEmpty());
+        
+        
+        
+
     }
 }
