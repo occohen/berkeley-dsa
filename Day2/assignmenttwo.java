@@ -28,6 +28,44 @@ package Day2;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 class assignmenttwo{
+
+    public static class Deque{
+        public int[] dequeArray;
+        public Deque(int[] dequeArray){
+            this.dequeArray = dequeArray;
+        }
+        public void appendRight(int insertValue){
+            int[] newArray = new int[this.dequeArray.length + 1];
+            newArray[newArray.length - 1] = insertValue;
+            for(int i = 0; i < this.dequeArray.length; i++){
+                newArray[i] = this.dequeArray[i];
+            }
+            this.dequeArray = newArray;
+        }
+        public void appendLeft(int insertValue){
+            int[] newArray = new int[this.dequeArray.length + 1];
+            newArray[0] = insertValue;
+            for(int i = 0; i < this.dequeArray.length; i++){
+                newArray[i+1] = this.dequeArray[i];
+            }
+            this.dequeArray = newArray;
+        }
+        public void printDeque(){
+            System.out.println("new array is:");
+            for(int i = 0; i < this.dequeArray.length; i++){
+                System.out.print(this.dequeArray[i]);
+            }
+            System.out.println("");
+        }
+        public void setIndex(int index, int value){
+            this.dequeArray[index] = value;
+        }
+    }
+
+
+
+
+
     public static void main(String[] args) {
         ArrayList<String> tests = new ArrayList<String>();
         tests.add("[ ]");
@@ -39,11 +77,25 @@ class assignmenttwo{
         tests.add("[{)}]");
         tests.add("(()[()({})]]])");
         for(int i = 0; i < tests.size(); i++){
-            System.out.println("test case" + i + checkBalanced(tests.get(i)));
+            //System.out.println("test case" + i + checkBalanced(tests.get(i)));
         }
-       
-        
+
+        int[] arrayOne = new int[5];
+        Deque dequeArray = new Deque(arrayOne);
+        dequeArray.setIndex(0,1);
+        System.out.println("Create new array");
+        dequeArray.printDeque();
+
+        System.out.println("Insert 3 at the left");
+        dequeArray.appendLeft(3); 
+        dequeArray.printDeque();
+
+        System.out.println("Insert 5 at the right");
+        dequeArray.appendRight(5);
+        dequeArray.printDeque();
+
     } 
+    //Check Balanced Braces
     public static Boolean checkBalanced(String input){
         //edgecase, string empty
         if(input.length() == 0)return true;
