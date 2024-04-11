@@ -1,0 +1,286 @@
+Check out: why would we use a stack or a queue over a deque?
+Hash Tables -- containers that map keys to values
+Contains items called key-value pairs
+The keys are always unique
+The keys have no specific order
+Hash tables also known as dictionaries, associative tables, and maps
+Ex:
+Mapping:
+"AK" = Alaska
+"CA" = California
+
+Counting:
+Action = 22
+Drama = 18
+Fiction = 10
+
+Grouping:
+Odd = [1,3,5,7,9]
+Even = [2,4,6,8,10,12]
+Prime = [1,2,3,5,7,11]
+
+Naive implementations of Hash Tables
+Two arrays. One for keys, another for values.
+Keys and values have corresponding indexes.
+
+Hash Table Items
+Each key mapped to a value
+Keys don't need to be integers
+Values can be of any type
+
+Operations (different syntax in every language, but same functions):
+get(ht, key) = returns a key's corresponding value COMPLEXITY O(n)
+set(ht, key, value) = sets the value of that key to that value COMPLEXITY O(n)
+delete(ht, key) = deletes a key-value pair COMPLEXITY O(n)
+count(ht) = number of entries (key-value pairs) COMPLEXITY O(1)
+
+Hash Function
+A mathematical function that accepts input and outputs a hash value or hash code
+    -A hash value is a consensed form of the input
+Allows efficient mapping of data to a fixed size output
+
+Properties of hash function:
+-Deterministic (same output for every same input)
+-Uniformly distributed = returns values that are spread out evenly across an output range
+-Avalanche effect = generates very different hash values for similar keys
+-Efficient = performs efficiently, even with large inputs
+
+Applications:
+Hash tables, password storage, data compression, encryption, image processing, file comparison
+
+Gives hash tables a boost in performance. Each hash value corresponds to an index in a hash table containing the key/value pair
+Takes advantage of index addressing
+Ex:
+-Takes in a key (string)
+-Each character of the key gets a unicode value (or just any value that corresponds to the key, but usually the unicode value)
+-Multiply the unicode value and the position index of that value in the string (so that we can differentiate position and reconstruct)
+-Add everything into a sum
+-Return the modulo of the sum and capacity (capacity is the amount of storage in the hash table)
+
+Sets are containers that only store unique elements
+Have operations similar to hash tables
+Only store keys.
+
+Hash function complexity:
+Numbers, short strings, in practice = O(1)
+Very long strings = O(n)
+
+
+HASH TABLE ALGORITHMS
+*Here's one key takeaway.
+We use hash tables to help us get the values for keys more efficiently. Sure, we could put it in an array and linear search it, but that
+will be O(n). Hash keys let us narrow it down to at least one of the buckets, and we search from there. Buckets will most likely 
+not have multiple key pairs in them, so it is much faster than searching all the way through. Since every key returns the same hash/index 
+every time, that is a much quicker way to do it (especially if each key ends up being in a unique bucket, but it is still faster even if
+it is not).
+
+Hash search implementations
+-Array with a count var
+-Each element in the array is a bucket
+-Each bucket contains a pointer to a two-element array
+    -the first element is the key
+    -the second element is the value
+
+Get the bucket index using hash(key)
+With bucket index, get key-value pair from the table
+Return the value part of the key-value pair
+-if it doesn't return, throw an exception
+
+Hash set implementations
+-Get bucket index using hash(key)
+-With bucket index, get key-value pair from the table
+-If bucket index is empty,
+    -create a key-value pair
+    -assign key-value pair at bucket index
+    -increment the count
+-Else,
+    -Set new value to existing key-value pair at bucket index. Aka: "override" the existing value
+
+Hash delete implementation
+-Get bucket index using hash(key)
+-Delete key-value pair
+-Decrement count
+
+
+
+Hash Collision
+-current implementation can't handle cases where buckets can have multiple key-value pairs
+-adding new entries will overrwrite existing ones
+-we should be able to add key-value pairs with different keys
+-we need to fix this, so that in case the hash returns the same index then we can fix it
+
+Two solutions to this issue:
+-Linear probing
+    -Essentially, what it sounds linked
+    -We keep adding one to the index until we find the next empty bucket.
+    -Calculated by adding n to bucket index until an empty bucket is found
+-Chaining
+    -Allows us to store multiple key-value pairs in each bucket
+    -Each bucket contains an array, and each item in the array is another array. Wow.
+    -This is a combination of a hash and linear implementation
+
+CHAINING ALGORITHMS
+Set:
+-Get bucket index using hash(key)
+-With bucket index, get array from the table
+-Create key-value pair
+-Append the key-value pair to the array
+-Increment the count
+
+Search:
+-Get bucket index
+-Get array from table
+-Linear search for the key in the array for that value
+-Return value from that key-value pair
+
+Delete:
+-Get bucket index
+-With bucket index, get array
+-Linear search for key in array
+-Delete item in array
+-Decrement count
+
+Considerations for hash tables:
+-Avoid collisions by increasing number of buckets
+-Avoid wasting space
+-Rule of thumb:
+    -7 Elements for every 10 buckets
+    -Load factor of 0.7 (number of elements/number of buckets)
+
+Time complexity:
+*HERES WHAT YOU NEED TO KNOW
+    -The more collisions, the closer you can get to degrading to O(n).
+    -The better the hashing, the more likely you will be close to O(1).
+search - worst case O(n) - average/best case O(1)
+set - worst case O(n) - average/best case O(1)
+delete - worst case O(n) - average/best case O(1)
+get size - worst case O(1) - average/best case O(1)
+
+SORTING ALGORITHMS
+*Sorting unsorted arrays or containers in descending or ascending order
+*Compare performance by the number of operations.
+*Examine different test cases:
+    -Best case
+    -Average case
+    -Worst case
+*Most languages have one built in, likely quicksort (python uses Timsort, made by a dude named Tim)
+*Mainly studied as a tool to understand other topics
+*Use large sets of numbers for comparing diff algos
+
+Two groups of algorithms.
+Simple sort algos:
+Bubble sort.
+Selection sort.
+Insertion sort.
+
+Recursive sorting algorithms:
+Merge sort.
+Quicksort.
+
+There are others, as well.
+*General tips: understanding pseudocode, test it out on scratch, write it, try it with diff arrangements of inputs
+
+Bubble sort:
+-Simple, inefficient sorting algoirthm.
+-Main idea: the highest value "bubbles" to the top.
+Simple.
+-Iterate through the length of the array
+-Sweep through.
+    -If current > next,
+    -Swap elements.
+*Some things that might help with bubble:
+    -Check to see if array is sorted beforehand, just in case
+    -Internal loop should only be looking to the part of the array that is unsorted.
+        -Takes complexity from O(n^2) to O((n^2 + n)/2). a decent amount better. test: 10,000 units; ~16s unoptimized, ~10s optimized
+    -Time complexity: best case - O(n). Worst/average case - O(n^2)
+    -Space complexity: O(1), good!
+
+Selection sort:
+-Slightly more complicated than bubble
+-Pseudo:
+    -Sweep through array
+    -Scan for lowest value in the unsorted section
+    -swap lowest value with value at the beginning of the unsorted section
+    -repeat steps until there are no more values in the unsorted section
+-Alternative pseudo:
+    -select maximum value and place at the end, instead of choosing smallest and putting at the beginning
+    -no real advantage
+    -slighty more calculations involved (not great)
+*Time complexity
+    -Best case: O(n^2)
+    -Average case, worst case: O(n^2)
+*Space requirements:
+    -sorts in place
+    -needs only space for swap
+    -O(1). good.
+
+Insertion sort:
+-Simple, inefficient. Similar to selection sort in performance.
+-Main idea: insert a value in the right place in an array
+Pseudo:
+*Start with the first item in the array as the sorted section and the rest as the unsorted section
+*Take the first item in the unsorted section and place it in the correct position in the sorted section
+    *iterate backwards starting from the end of the sorted section
+    *insert the item after the item with a lower value in the sorted section
+*Repeat step 2 until there are no more items in the unsorted section
+-time complexity
+best case - O(n)
+Average case/worst case - O(n^2)
+-space complexity
+Usually O(1). if you use recursion, might need O(n)
+
+Merge sort:
+-efficient, recursive
+-divide and counquer strategy
+-it does, however, require additional space
+-kind of similar to binary search
+-split array in half until it can't be divided anymore and then merge back
+algo:
+1.split it in half
+2. can it be split further?
+    -yes? go back to 1
+    -no? merge the two halves
+pseudo:
+1. allocate an array with the capacity of both left and right arrays
+2. while left index < left array length and right index < right array length
+    -if left < right,
+        a. append left to new array
+        b. increment left index
+    -else:
+        a. append right element to new array
+        b. increment right index
+3. copy remaining left or right array elements to new array
+*time comp:
+    -best,average,worst -- all equal to O(n log n), which is better than all the "simple" algos which are O(n^2). somewhere around 1000x better.
+*space comp:
+    -O(n), because total required space is the same size as the array (n) even though it is made up by multiple smaller arrays.
+
+Quick Sort:
+-efficient, recursive
+-can have an in-place implemenation (no extra arrays)
+-main idea: divide and conquer
+-Partitioning: rearranging elements in an array based on a pivot value
+    -two subarrays: left holds elements smaller than pivot value, right holds elements bigger than pivot value
+    -pivot value placed in its proper posiiton in the array
+-ideally, the pivot value has equal amounts of elements bigger and smaller than it
+*the better the pivot, the better the optimization
+Strategies to find pivot values:
+-simple:
+    -select last element
+    -select first element
+    -random selection
+-more effective:
+    -median of three: select the middle value from the first, middle and last elements
+algo:
+1. select a pivot
+2. iterate through items
+    -if item <= pivot, place item in the lesser array
+    -if item > pivot, place item in the greater array
+3. recursively call quicksort on the lesser array and the greater array
+4.return the merge of lesser, pivot value, and greater array
+*time complexity
+    -best, average = O(n log n)
+    -worst case = O(n^2)
+*space complexity
+    -temporary arrays implementation = O(n)
+    -array swap implementation = O(1)
