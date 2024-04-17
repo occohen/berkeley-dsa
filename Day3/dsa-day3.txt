@@ -29,7 +29,7 @@ Keys don't need to be integers
 Values can be of any type
 
 Operations (different syntax in every language, but same functions):
-get(ht, key) = returns a key's corresponding value COMPLEXITY O(n)
+get(ht, key) = returns a key's corresponding value COMPLEXITY O(n) *wrong? check
 set(ht, key, value) = sets the value of that key to that value COMPLEXITY O(n)
 delete(ht, key) = deletes a key-value pair COMPLEXITY O(n)
 count(ht) = number of entries (key-value pairs) COMPLEXITY O(1)
