@@ -1,0 +1,61 @@
+Linked lists = collection of nodes
+node-based
+performance advantages
+allocated space isn't contiguous(each item on its own)
+nodes=value + reference to another node
+-Alternatives to arrays
+-graphs
+-file systems
+-objects for rendering
+
+Compared to arrays:
+No initial size (arrays have initial size)
+No wasted memory
+No need to shift elements when inserting or deleting
+
+Indexing operations are more efficient for arrays
+Arrays are easier to implement
+
+first item = head
+last item = tail
+count = #nodes
+
+node=
+type value
+node nextNode
+
+Cycles = circular references
+if 1 -> 2 -> 3 -> 1
+Could cause infinite loops. bad.
+
+operations:
+traversal
+set a temp current node to head's node
+set current to current node's next
+continue going through
+eventually, we hit the tail. exit there
+if current node = none then we are done
+
+Insertion
+-add the initial node
+    -create LL object
+    -create new node
+    -set the head and tail to reference the new node you created
+
+-prepend - insert at the beginning
+-append - insert at the end
+-insert middle
+
+
+reverse linked list:
+current = head
+prev = none
+tail = head
+while current != none
+    next = current.next
+    current.next = prev
+    prev = current
+    current = next
+head = prev
+
+done!

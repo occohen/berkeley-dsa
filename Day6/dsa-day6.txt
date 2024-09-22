@@ -1,0 +1,93 @@
+-data structure, specializes in relationships
+-has nodes (vertices) and edges
+Not all graphs are trees, but every single tree is a graph
+Graphs can have cycles (elements that will lead in an infinite loop)
+Trees cannot have cycles
+Graphs can start anywhere
+Trees have to have a root node
+
+Graph nodes are called vertices
+Lines between vertices are edges
+Vertices connected by an edge are adjacent (essentially, both vertices have the same connecting dot) x1-x2-x3 x1 and x3 are adjacent, but not neighbors
+Directly connected vertices are neighbors
+
+undirected graph:
+lines indicate relationships
+relationships are bidirectional
+lines without arrows = bidirectional
+symmetric relationships
+
+directed graphs (digraphs)
+relationship is one way, non-symmetric
+arrows indicate directions
+double pointed arrows are symmetric, two way
+vertices can be unreachable in digraphs
+
+weighted graph
+edges have a weighted
+could represent: distance, price, quantity
+directed or undirected graphs can be weighted
+
+directed acyclic graph (DAG)
+has directed edges
+doesn't have cycles (acyclic)
+can have multiple paths between the nodes
+nodes can have many parents
+
+ALL TREES ARE DAGS, NOT ALL DAGS ARE TREES
+all trees are dags because they have directed edges and have no cycles
+
+not all dags are trees because trees have a root node
+trees also only have one path between any two nodes
+each node in the tree has one parent
+
+complete graphs
+undirected graphs
+every vertex is connected to each other by a single edge
+edges = v(v-1)/2, v=vertices
+
+vertices in a graph are represented by 2d arrays
+each vertex has a row, column
+number of rows = number of columns = number of vertices
+the location [x][y] has either a weight or a true/false to determine if there is an edge
+at every point, [x][y] when x=y will always be true (vertices are connected to themselves)
+
+adjacency matrix for unweighted (has symmetry):
+A  B C D E
+A[T][][][][T]
+B[][T][T][][]
+C[][T][T][][]
+D[][][][T][]
+E[T][][][][T]
+
+directed graphs have the same structure
+rows = outgoing
+columns = incoming
+does not have symmetry
+INCOMING
+A  B C D E
+A[T][][][][T] O
+B[][T][T][T][] U
+C[][T][T][][] T
+D[][][][T][]
+E[T][][T][][T]
+
+for weighted graphs: value in the matrix represents the weight
+A  B C D E
+A[0][][][][4] O
+B[][0][3][][] U
+C[][2][0][][2] T
+D[][][][0][]
+E[1][][4][][0]
+
+0 = self-connected
+
+Advantages to this method:
+simplest representation of a graph
+efficient for dense graphs (lots of connections)
+edge lookup is O(1)
+
+Disadvantages:
+O(v^2) space, where v = vertices
+O(v^2) time to iterate through each edge
+

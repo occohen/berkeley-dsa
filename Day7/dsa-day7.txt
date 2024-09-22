@@ -1,0 +1,11 @@
+Dynamic programming
+breaking down problems into smaller problems, solves each subproblem only once
+
+
+recursive fibonacci = O(2^n) time, O(n) space in the stack for recursive
+stack is limited to the height of the tree
+
+two approaches to dynamic programming -- top down and bottom up
+top down is known as memoization
+optimization technique that stores expensive function calls
+caches data in a container like a hash table

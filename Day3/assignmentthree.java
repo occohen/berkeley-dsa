@@ -41,9 +41,9 @@ public class assignmentthree {
 
 
         //problem 4
-        String str1 = "abebadbbc";
+        String str1 = "aababab";
         //should return c
-        //ystem.out.println(firstNonRepeatingChar(str1));
+        //System.out.println(firstNonRepeatingChar(str1));
 
         //problem 5
         int[] inputArray = {14,9,5,7,9,2};
